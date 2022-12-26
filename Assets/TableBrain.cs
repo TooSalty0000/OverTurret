@@ -5,8 +5,8 @@ using UnityEngine;
 public class TableBrain : MonoBehaviour
 {
 
-    private Transform itemAnchor;
-    private GameObject itemOnTable;
+    public Transform itemAnchor;
+    public GameObject itemOnTable;
     public bool itemPlaced;
     // Start is called before the first frame update
     void Start()
@@ -20,7 +20,8 @@ public class TableBrain : MonoBehaviour
         itemPlaced = itemOnTable != null;
     }
 
-    public bool PlaceItemOnTable (GameObject holdable) {
+
+    public virtual bool PlaceItemOnTable (GameObject holdable) {
         if (itemOnTable == null) {
             itemOnTable = holdable;
             holdable.transform.position = itemAnchor.position;
@@ -30,7 +31,7 @@ public class TableBrain : MonoBehaviour
         return false;
     }
 
-    public GameObject RemoveItemFromTable () {
+    public virtual GameObject RemoveItemFromTable () {
         GameObject item = itemOnTable;
         itemOnTable = null;
         return item;

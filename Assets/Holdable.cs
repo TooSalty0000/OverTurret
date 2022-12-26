@@ -21,4 +21,7 @@ public class Holdable : MonoBehaviour
         }
         GetComponent<Rigidbody>().isKinematic = false;
     }
+
+    
+
 }

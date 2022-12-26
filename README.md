@@ -12,7 +12,7 @@ In this stage, I made a basic player, a basic turret, and a basic enemy. This wi
 In this stage, I modified the turret model into material items. I also created logics so that the player can throw them. 
 
 ## Pre.1.2
-In this stage, I added a table, allowing the players to place items on the table. 
+In this stage, I added the table, allowing the players to place items on the table. 
  - The biggest problem here was that picking up items, throwing items, placing items on the table, and picking up items from the table all happened with spacebar. This is done because the alternate interact key (will be 'F' key in the future) will be used to merge items to make a turret.
  - To solve this problem, I had to set up the order the code detects the events. 
 1. Player detects if there's a table nearby. If the player is holding an item, the item is placed on the table
@@ -20,3 +20,6 @@ In this stage, I added a table, allowing the players to place items on the table
 3. If Player is holding an item, throw the item. 
 4. If Player is not holding an item, check if there's an item nearby. If there is, pick up the item. 
  - When done in this order, the player can smoothly pick up items and throw items while still interacting with the table. 
+
+## Pre.1.3
+In this stage, I added the Assembler, which is a variation of the table. The biggest difference other than the model is that it can hold up to three items. I wish I can delete some variables from parent class, but I don't think that's possible. However, I haven't made the assembling system yet. I have to work on recipes and other details to make it work, so that' will probably be my next update. 

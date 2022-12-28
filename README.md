@@ -27,4 +27,11 @@ In this stage, I added the Assembler, which is a variation of the table. The big
 ## Pre.1.4
 In this stage, I added the Assembler system. I created a resource folder where I can add all the recipes of turrets in the future. I used ScriptableObjects to make the recipes. 
 
-Then, I let the players be able to assemble with 'F' key. When they press the 'F' key, the assembler goes through all recipes and look for a recipe that contains all items in the assembler. If there is a match, the product in instatiated. If there isn't, even though there isn't anything yet, I will add an animation that shows the recipe doesn't work.  
+Then, I let the players be able to assemble with 'F' key. When they press the 'F' key, the assembler goes through all recipes and look for a recipe that contains all items in the assembler. If there is a match, the product in instatiated. If there isn't, even though there isn't anything yet, I will add an animation that shows the recipe doesn't work. 
+
+## Pre.1.5
+In this stage, I made the enemy AI. Currently I made it follow the player, but later, I am planning to add a center beacon for enemies to attack. 
+
+I also made the turrets be able to attack the enemies. It has a look range and an attack range. This will be useful later when I make it so that it takes a long time for the turret head to rotate.
+
+Hopefully, I can make it so that the enemies can travel in different paths. If nothing works, I will probably make it so that there's a fixed path. 

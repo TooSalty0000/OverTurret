@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Holdable
   - Table
+  - Enemy
   layers:
   - Default
   - TransparentFX

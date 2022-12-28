@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MaterialBrain : Holdable
 {
+    public string materialName;
     private Transform model;
     private float rotateSpeed = 4f;
     private float hoverSpeed = 2f;

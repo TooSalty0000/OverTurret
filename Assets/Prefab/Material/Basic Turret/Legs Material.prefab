@@ -242,6 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ded0efd39a3cd824f821c44d64cb5f33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  materialName: BasicLegs
 --- !u!1 &4611981882865576521
 GameObject:
   m_ObjectHideFlags: 0

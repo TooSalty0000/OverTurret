@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] 
     private GameObject HoldingObject;
 
+
+    
     public GameObject closestHoldable;
     public float closestHoldableDistance;
 
@@ -109,6 +111,13 @@ public class PlayerController : MonoBehaviour
             if (distance < closestTableDistance) {
                 closestTable = table;
                 closestTableDistance = distance;
+            }
+        }
+
+        // when press f, check if the cloest table is an assembler, if so, assemble
+        if (Input.GetKeyDown(KeyCode.F)) {
+            if (closestTable != null && closestTable.GetComponent<AssemblerBrain>()) {
+                closestTable.GetComponent<AssemblerBrain>().Assemble();
             }
         }
 

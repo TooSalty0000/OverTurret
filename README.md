@@ -23,3 +23,8 @@ In this stage, I added the table, allowing the players to place items on the tab
 
 ## Pre.1.3
 In this stage, I added the Assembler, which is a variation of the table. The biggest difference other than the model is that it can hold up to three items. I wish I can delete some variables from parent class, but I don't think that's possible. However, I haven't made the assembling system yet. I have to work on recipes and other details to make it work, so that' will probably be my next update. 
+
+## Pre.1.4
+In this stage, I added the Assembler system. I created a resource folder where I can add all the recipes of turrets in the future. I used ScriptableObjects to make the recipes. 
+
+Then, I let the players be able to assemble with 'F' key. When they press the 'F' key, the assembler goes through all recipes and look for a recipe that contains all items in the assembler. If there is a match, the product in instatiated. If there isn't, even though there isn't anything yet, I will add an animation that shows the recipe doesn't work.  

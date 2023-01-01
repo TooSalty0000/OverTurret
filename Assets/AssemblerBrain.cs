@@ -7,18 +7,18 @@ public class AssemblerBrain : TableBrain
 
     public GameObject[] itemsOnTable;
     [SerializeField]
-    private int maxItemsOnTable = 3;
-    private int itemsOnTableCount = 0;
+    public int maxItemsOnTable = 3;
+    public int itemsOnTableCount = 0;
 
     // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
-        itemAnchor = transform.GetChild(0);
+        base.Start();
         itemsOnTable = new GameObject[maxItemsOnTable];
     }
 
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
         itemPlaced = itemsOnTableCount > 0;
     }

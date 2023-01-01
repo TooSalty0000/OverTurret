@@ -35,3 +35,13 @@ In this stage, I made the enemy AI. Currently I made it follow the player, but l
 I also made the turrets be able to attack the enemies. It has a look range and an attack range. This will be useful later when I make it so that it takes a long time for the turret head to rotate.
 
 Hopefully, I can make it so that the enemies can travel in different paths. If nothing works, I will probably make it so that there's a fixed path. 
+
+## Pre.1.6
+... Screw the upload system. 
+
+## Pre.1.7
+In this stage, I created the material box, which was supposed to be created on the previous update. Thanks to the file not getting uploaded, I had to recreate the model. However, this actually helped me to finalize on whether I should create a parts builder or a material box. In the end, I decided to do both. :P I will be making the parts builder in later stages. 
+
+I also worked on item throwing system. Before, the player threw the items at a fixed distance. Now, the player throws it based on how long the player holds the space key. This is done by creating a "throw mode," which will be useful when I add animations later. 
+
+As I worked on the throwing, I also decided to let the items land on tables. Thus, I made the player throw the items higher. Then, I made the items land on the table the item collides with. This was more confusing than expected (Thanks to this, I failed my 1 commit per day challenge.........). However, this helped me understand override functions and inheritance better. Yay...?

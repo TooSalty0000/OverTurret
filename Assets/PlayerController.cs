@@ -11,11 +11,11 @@ public class PlayerController : MonoBehaviour
     private float speed = 2.0f;
     [SerializeField]
     private float throwPower = 10.0f;
+    private float throwPowerVariance;
+    private bool throwMode = false;
 
     [SerializeField]
     private Transform HandPosition;
-    [SerializeField]
-    private Slider throwPowerSlider;
 
 
     [SerializeField] 
@@ -59,13 +59,13 @@ public class PlayerController : MonoBehaviour
             HoldingObject.transform.rotation = HandPosition.rotation;
         }
 
-        // check for all objects with tag "Holdable" in range of 5 units and set closestHoldable to the closest one
+        // check for all objects with tag "Holdable" in range of 1.2 units and set closestHoldable to the closest one
         if (HoldingObject == null) {
             GameObject[] holdables = GameObject.FindGameObjectsWithTag("Holdable");
             closestHoldable = null;
-            closestHoldableDistance = 2f;
+            closestHoldableDistance = 1.2f;
             foreach (GameObject holdable in holdables) {
-                float distance = Vector3.Distance(transform.position + transform.forward * 0.2f, holdable.transform.position);
+                float distance = Vector3.Distance(transform.position + transform.forward * 0.3f, holdable.transform.position);
                 if (distance < closestHoldableDistance) {
                     closestHoldable = holdable;
                     closestHoldableDistance = distance;
@@ -93,21 +93,38 @@ public class PlayerController : MonoBehaviour
                 HoldingObject = closestHoldable;
                 HoldingObject.GetComponent<Holdable>().OnPickup();
             } else if (HoldingObject != null) {
+                throwMode = true;
+            }
+        }
+
+        // while space is held
+        if (Input.GetKey(KeyCode.Space)) {
+            if (throwMode) {
+                throwPowerVariance += Time.deltaTime * 2f;
+                throwPowerVariance = Mathf.Clamp(throwPowerVariance, 0, 1.5f);
+            }
+        }
+
+        // when space is released
+        if (Input.GetKeyUp(KeyCode.Space)) {
+            if (throwMode) {
                 HoldingObject.GetComponent<Rigidbody>().isKinematic = false;
-                Vector3 forceDirection = transform.forward * throwPower;
+                Vector3 forceDirection = (transform.forward * throwPower+ transform.up * throwPower * 0.4f) * throwPowerVariance ;
                 HoldingObject.GetComponent<Rigidbody>().AddForce(forceDirection, ForceMode.Impulse);
-                HoldingObject.transform.parent = null;
                 HoldingObject.GetComponent<Holdable>().OnDrop();
+                HoldingObject.transform.parent = null;
                 HoldingObject = null;
+                throwMode = false;
+                throwPowerVariance = 0;
             }
         }
 
         // constantly check for all objects with tag "Table" in range of 1 unit and set closestTable to the closest one
         GameObject[] tables = GameObject.FindGameObjectsWithTag("Table");
         closestTable = null;
-        closestTableDistance = 1f;
+        closestTableDistance = 0.6f;
         foreach (GameObject table in tables) {
-            float distance = Vector3.Distance(transform.position + transform.forward * 0.3f, table.transform.position);
+            float distance = Vector3.Distance(transform.position + transform.forward * 0.5f, table.transform.position);
             if (distance < closestTableDistance) {
                 closestTable = table;
                 closestTableDistance = distance;

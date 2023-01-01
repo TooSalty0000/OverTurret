@@ -9,15 +9,20 @@ public class TableBrain : MonoBehaviour
     public GameObject itemOnTable;
     public bool itemPlaced;
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
         itemAnchor = transform.GetChild(0);
     }
 
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
         itemPlaced = itemOnTable != null;
+
+        if (itemOnTable != null) {
+            itemOnTable.transform.position = itemAnchor.position;
+            itemOnTable.transform.rotation = itemAnchor.rotation;
+        }
     }
 
 

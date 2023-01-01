@@ -12,11 +12,12 @@ public class MaterialBrain : Holdable
 
     private bool isDropped = true;
 
+    public TableBrain tablePlacedOn;
+
     // Start is called before the first frame update
     void Start()
     {
         model = transform.GetChild(0);
-        isDropped = true;
         yOffset = model.localPosition.y;
     }
 
@@ -31,12 +32,15 @@ public class MaterialBrain : Holdable
             model.localRotation = Quaternion.identity;
             model.localPosition = new Vector3(0, yOffset, 0);
         }
+
+        
     }
 
     //stop rotating and hovering when picked up and reset rotation
     public override void OnPickup() {
         base.OnPickup();
         isDropped = false;
+        tablePlacedOn = null;
     }
 
     //start rotating and hovering when dropped
@@ -44,4 +48,23 @@ public class MaterialBrain : Holdable
         base.OnDrop();
         isDropped = true;
     }
+
+    private void OnCollisionEnter(Collision other) {
+        if (other.gameObject.GetComponent<TableBrain>() && tablePlacedOn == null) {
+            if (other.gameObject.GetComponent<AssemblerBrain>()) {
+                if (other.gameObject.GetComponent<AssemblerBrain>().itemsOnTableCount < other.gameObject.GetComponent<AssemblerBrain>().maxItemsOnTable) {
+                    other.gameObject.GetComponent<AssemblerBrain>().PlaceItemOnTable(gameObject);
+                    OnPickup();
+                    tablePlacedOn = (TableBrain)other.gameObject.GetComponent<AssemblerBrain>();
+                }
+            } else {
+                if (!other.gameObject.GetComponent<TableBrain>().itemPlaced) {
+                    other.gameObject.GetComponent<TableBrain>().PlaceItemOnTable(gameObject);
+                    OnPickup();
+                    tablePlacedOn = other.gameObject.GetComponent<TableBrain>();
+                }
+            }
+        }
+    }
+
 }

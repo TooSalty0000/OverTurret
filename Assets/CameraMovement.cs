@@ -17,8 +17,8 @@ public class CameraMovement : MonoBehaviour
     void Update()
     {
         // move camera with arrow keys
-        Vector3 inputMovement = new Vector3(Input.GetAxisRaw("HorizontalArrow"), 0, Input.GetAxisRaw("VerticalArrow"));
+        Vector3 inputMovement = new Vector3(Input.GetAxisRaw("HorizontalArrow"), 0, 0);
         inputMovement.Normalize();
-        transform.position += Time.deltaTime * new Vector3(inputMovement.x * cameraSpeed, 0, inputMovement.z * cameraSpeed);
+        transform.position += Time.deltaTime * new Vector3(inputMovement.x * cameraSpeed, 0, 0);
     }
 }

@@ -45,3 +45,9 @@ In this stage, I created the material box, which was supposed to be created on t
 I also worked on item throwing system. Before, the player threw the items at a fixed distance. Now, the player throws it based on how long the player holds the space key. This is done by creating a "throw mode," which will be useful when I add animations later. 
 
 As I worked on the throwing, I also decided to let the items land on tables. Thus, I made the player throw the items higher. Then, I made the items land on the table the item collides with. This was more confusing than expected (Thanks to this, I failed my 1 commit per day challenge.........). However, this helped me understand override functions and inheritance better. Yay...?
+
+
+## Pre.1.8
+In this stage, I worked on the cameras. Because the map is long, I would think one camera would not be enough. Thus, I made two cameras and let the players exchange between two. 
+
+I am on a trip when I made this, so I didn't do much. Welp. Too bad. :P At least I did something. 

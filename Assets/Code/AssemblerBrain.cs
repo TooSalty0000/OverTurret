@@ -57,14 +57,18 @@ public class AssemblerBrain : TableBrain
     public void Assemble()
     {
         //get names of all items on the table
+        if (itemsOnTableCount < 3) {
+            Debug.Log("Not enough items on table");
+            return;
+        }
         string[] itemNames = new string[itemsOnTableCount];
         for (int i = 0; i < itemsOnTableCount; i++) {
             itemNames[i] = itemsOnTable[i].GetComponent<MaterialBrain>().materialName;
         }
 
         //check if there is a recipe that matches the items on the table, order doesn't matter
-        AssembleRecipe recipe = null;
-        foreach (AssembleRecipe r in AssembleManager.recipes) {
+        TurretRecipe recipe = null;
+        foreach (TurretRecipe r in AssembleManager.turretRecipes) {
             if (r.checkRecipe(itemNames)) {
                 recipe = r;
                 break;
@@ -81,6 +85,9 @@ public class AssemblerBrain : TableBrain
             itemsOnTable = new GameObject[maxItemsOnTable];
 
             GameObject product = Instantiate(recipe.product, itemAnchor.position, itemAnchor.rotation);
+            TurretBrain turretBrain = product.GetComponent<TurretBrain>();
+            turretBrain.turretSetup(recipe);
+
             PlaceItemOnTable(product);
         } else  {
             Debug.Log("No recipe found");

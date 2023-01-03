@@ -9,13 +9,12 @@ public class EnemyBrain : MonoBehaviour
     [SerializeField]
     private Slider healthBar;
     private NavMeshAgent agent;
-    private Transform player;
+    private Transform target;
     public float health = 10f;
     // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        player = GameObject.FindGameObjectWithTag("Player").transform;
         healthBar.maxValue = health;
         healthBar.minValue = 0;
     }
@@ -23,7 +22,7 @@ public class EnemyBrain : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        agent.SetDestination(player.position);
+        agent.SetDestination(target.position);
         healthBar.value = health;
         if (health <= 0) {
             Destroy(gameObject);
@@ -32,5 +31,9 @@ public class EnemyBrain : MonoBehaviour
 
     public void TakeDamage(float damage) {
         health -= damage;
+    }
+
+    public void SetTarget(Transform target) {
+        this.target = target;
     }
 }

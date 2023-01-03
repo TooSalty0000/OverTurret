@@ -6,10 +6,10 @@ public class AssembleManager : MonoBehaviour
 {
     public static AssembleManager instance;
 
-    public static AssembleRecipe[] recipes;
+    public static TurretRecipe[] turretRecipes;
 
     private void Awake() {
-        recipes = Resources.LoadAll<AssembleRecipe>("Turret Recipes");
+        turretRecipes = Resources.LoadAll<TurretRecipe>("Turret Recipes");
         if (instance == null) {
             instance = this;
         } else {

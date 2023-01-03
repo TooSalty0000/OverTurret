@@ -51,3 +51,12 @@ As I worked on the throwing, I also decided to let the items land on tables. Thu
 In this stage, I worked on the cameras. Because the map is long, I would think one camera would not be enough. Thus, I made two cameras and let the players exchange between two. 
 
 I am on a trip when I made this, so I didn't do much. Welp. Too bad. :P At least I did something. 
+
+## Pre.1.9
+In this stage, I created the beacon, and this allowed me to create a basic gameplay of the game. I created an Enemy Manager, where it spawns enemies at a certain interval at given spawnpoints. Later, I will add wave system, but that will be quite far in the future. 
+
+I also changed the turret system. I added bullet counts and health. When the turrets use up all the bullets, it stops firing. In the future, I will make the enemies attack the turrets, and when the health becomes 0, I will make it explode. 
+
+Smaller changes
+ - Created a small branch of AssemblerRecipe called TurretRecipe. This will make it easier to set stats for each turrets
+ - Added attack animation for the basic enemy. However, it is not being used right now. 

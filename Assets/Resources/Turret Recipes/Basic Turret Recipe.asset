@@ -9,11 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f565223adf89a504d80ab620fd017549, type: 3}
-  m_Name: BasicTurret
+  m_Script: {fileID: 11500000, guid: b04d2eb82a99640f2835da359bbc74c9, type: 3}
+  m_Name: Basic Turret Recipe
   m_EditorClassIdentifier: 
   materials:
   - BasicHead
   - BasicBody
   - BasicLegs
   product: {fileID: 4043679506035621638, guid: a74867131b45a5f47867b156d1c0d417, type: 3}
+  bulletCount: 20
+  bulletDamage: 2
+  bulletSpeed: 20
+  shootDelay: 2
+  range: 10
+  shootRange: 5
+  health: 5

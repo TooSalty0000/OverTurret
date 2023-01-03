@@ -1,34 +1,59 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TurretBrain : Holdable
 {
     private Transform target;
 
     [SerializeField]
-    private float range = 10f;
-    [SerializeField]
-    private float shootRange = 5f;
-    [SerializeField]
-    private float shootDelay = .1f;
-    [SerializeField]
     private Transform bulletSpawnpoint;
-    [SerializeField]
-    private float bulletSpeed = 20f;
-    private float shootTimer = 0;
 
     [SerializeField]
     private Transform barrel;
     [SerializeField]
     private Transform head;
     [SerializeField]
+    private Slider bulletBar;
+    [SerializeField]
+    private Slider healthBar;
+
+    [SerializeField]
     private GameObject bulletPrefab;
     private float closestDistace;
-    // Start is called before the first frame update
-    void Start()
-    {
+    private float shootTimer = 0;
+
+    [Header("Turret Stats")]
+    // turret Stats
+    private int bulletCount = 10;
+    private float bulletSpeed = 20f;
+    private float bulletDamage = 2f;
+    private float shootDelay = .1f;
+    private float range = 10f;
+    private float shootRange = 5f;
+    private float health = 5f;
+
+    public void turretSetup(TurretRecipe recipe) {
+        bulletCount = recipe.bulletCount;
+        bulletSpeed = recipe.bulletSpeed;
+        bulletDamage = recipe.bulletDamage;
+        shootDelay = recipe.shootDelay;
+        range = recipe.range;
+        shootRange = recipe.shootRange;
+        health = recipe.health;
         
+        bulletBar.maxValue = bulletCount;
+        bulletBar.minValue = 0;
+        healthBar.maxValue = health;
+        healthBar.minValue = 0;
+    }
+
+    private void Start() {
+        bulletBar.maxValue = bulletCount;
+        bulletBar.minValue = 0;
+        healthBar.maxValue = health;
+        healthBar.minValue = 0;
     }
 
     // Update is called once per frame
@@ -65,14 +90,17 @@ public class TurretBrain : Holdable
             shootTimer -= Time.deltaTime;
         }
 
-
+        bulletBar.value = bulletCount;
+        healthBar.value = health;
     }
 
     private void shootTarget(Transform target) {
-        if (shootTimer <= 0) {
+        if (shootTimer <= 0 && bulletCount > 0) {
             GameObject bullet = Instantiate(bulletPrefab, bulletSpawnpoint.position, bulletSpawnpoint.rotation);
             bullet.GetComponent<bulletBrain>().speed = bulletSpeed;
+            bullet.GetComponent<bulletBrain>().damage = bulletDamage;
             shootTimer = shootDelay;
+            bulletCount--;
         }
     }
 }

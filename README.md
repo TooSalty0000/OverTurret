@@ -60,3 +60,14 @@ I also changed the turret system. I added bullet counts and health. When the tur
 Smaller changes
  - Created a small branch of AssemblerRecipe called TurretRecipe. This will make it easier to set stats for each turrets
  - Added attack animation for the basic enemy. However, it is not being used right now. 
+
+## Pre.1.10
+In this stage, I worked more on the visual things, such as hologram effects and animations.
+ - Animation for opening material boxes
+ - Animation for attacking turrets
+ - Hologram for items on the material boxes
+
+Another big change is adding health and bullet system + enemy tracking system. I made it so that there will be limited number of enemies attack a turret (3 for basic). This would hopefully prevent crowding. Later, I will add an explosion so that the turrets will damage the enemies when it dies. 
+
+I also edited small things, such as how players take items from material boxes, level balancing, etc. Hopefully, after the explosion is added, I can work on level designs. As I do, I should create a storyboard for the system. 
++ Idk when, but I need to change these into multiplayer in the future. 

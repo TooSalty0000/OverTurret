@@ -7,6 +7,8 @@ TagManager:
   - Holdable
   - Table
   - Enemy
+  - Hologram
+  - Wall
   layers:
   - Default
   - TransparentFX

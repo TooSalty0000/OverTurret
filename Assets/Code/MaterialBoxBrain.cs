@@ -6,17 +6,40 @@ public class MaterialBoxBrain : TableBrain
 {
     [SerializeField]
     private GameObject material;
+    [SerializeField]
+    private Material hologramMaterial;
+    private Animator animator;
+
+    public override void Start()
+    {
+        animator = GetComponent<Animator>();
+        GameObject hologram = Instantiate(material, itemAnchor.position, itemAnchor.rotation);
+        hologram.transform.parent = itemAnchor;
+        Destroy(hologram.GetComponent<MaterialBrain>());
+        Destroy(hologram.GetComponent<Rigidbody>());
+        Destroy(hologram.GetComponent<Collider>());
+        hologram.transform.tag = "Hologram";
+        MeshRenderer[] renderers = hologram.GetComponentsInChildren<MeshRenderer>();
+        foreach (MeshRenderer renderer in renderers) {
+            renderer.material = hologramMaterial;
+        }
+    }
 
     // Update is called once per frame
     public override void Update()
     {
         base.Update();
-        // if there is no item on the table, spawn a new one
-        if (itemOnTable == null) {
-            GameObject newMaterial = Instantiate(material, itemAnchor.position, itemAnchor.rotation);
-            PlaceItemOnTable(newMaterial);
-            newMaterial.GetComponent<MaterialBrain>().OnPickup();
-            newMaterial.GetComponent<MaterialBrain>().tablePlacedOn = this;
-        }
+        itemPlaced = true;
+    }
+
+    public override bool PlaceItemOnTable(GameObject holdable)
+    {
+        return false;
+    }
+
+    public override GameObject RemoveItemFromTable()
+    {
+        animator.SetTrigger("Open");
+        return Instantiate(material, itemAnchor.position, itemAnchor.rotation);
     }
 }

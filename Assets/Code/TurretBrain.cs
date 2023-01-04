@@ -24,6 +24,10 @@ public class TurretBrain : Holdable
     private float closestDistace;
     private float shootTimer = 0;
 
+    [SerializeField]
+    private int maxTargets = 3;
+    private List<EnemyBrain> targetEnemies = new List<EnemyBrain>();
+
     [Header("Turret Stats")]
     // turret Stats
     private int bulletCount = 10;
@@ -50,6 +54,7 @@ public class TurretBrain : Holdable
     }
 
     private void Start() {
+        
         bulletBar.maxValue = bulletCount;
         bulletBar.minValue = 0;
         healthBar.maxValue = health;
@@ -92,6 +97,21 @@ public class TurretBrain : Holdable
 
         bulletBar.value = bulletCount;
         healthBar.value = health;
+
+        //check targetEnemies for dead enemies
+        for (int i = 0; i < targetEnemies.Count; i++) {
+            if (targetEnemies[i] == null) {
+                targetEnemies.RemoveAt(i);
+            }
+        }
+        
+    }
+
+    public void takeDamage(float damage) {
+        health -= damage;
+        if (health <= 0) {
+            Destroy(gameObject);
+        }
     }
 
     private void shootTarget(Transform target) {
@@ -102,5 +122,13 @@ public class TurretBrain : Holdable
             shootTimer = shootDelay;
             bulletCount--;
         }
+    }
+
+    public bool setTarget(EnemyBrain enemy) {
+        if (targetEnemies.Count < maxTargets) {
+            targetEnemies.Add(enemy);
+            return true;
+        }
+        return false;
     }
 }

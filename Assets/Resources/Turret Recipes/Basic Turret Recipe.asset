@@ -17,10 +17,10 @@ MonoBehaviour:
   - BasicBody
   - BasicLegs
   product: {fileID: 4043679506035621638, guid: a74867131b45a5f47867b156d1c0d417, type: 3}
-  bulletCount: 20
+  bulletCount: 30
   bulletDamage: 2
   bulletSpeed: 20
-  shootDelay: 2
-  range: 10
-  shootRange: 5
+  shootDelay: 1
+  range: 12
+  shootRange: 10
   health: 5

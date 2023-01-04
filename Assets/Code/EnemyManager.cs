@@ -10,13 +10,18 @@ public class EnemyManager : MonoBehaviour
     [SerializeField]
     private Transform[] spawnPoints;
     [SerializeField]
-    private Transform target;
+    private Transform beacon;
 
     private float[] spawnTimers;
 
     // Start is called before the first frame update
+    private void Awake() {
+        enemyData = Resources.LoadAll<EnemyData>("Enemies");
+    }
     void Start()
     {
+        // Initialize the enemyData
+
         spawnTimers = new float[enemyData.Length];
         
         for (int i = 0; i < spawnTimers.Length; i++)
@@ -55,8 +60,10 @@ public class EnemyManager : MonoBehaviour
         GameObject enemy = Instantiate(enemyData[index].enemyPrefab, spawnPoints[spawnPointIndex].position, Quaternion.identity);
         // Get the enemy's brain
         EnemyBrain brain = enemy.GetComponent<EnemyBrain>();
+        // Set the enemy's stats
+        brain.setStats(enemyData[index]);
         // Set the enemy's target
-        brain.SetTarget(target);
+        brain.SetBeacon(beacon);
         
     }
 }

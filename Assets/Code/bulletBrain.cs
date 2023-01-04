@@ -24,6 +24,8 @@ public class bulletBrain : MonoBehaviour
         if (other.gameObject.tag == "Enemy") {
             other.GetComponentInParent<EnemyBrain>().TakeDamage(damage);
             Destroy(gameObject);
+        } else if (other.gameObject.tag == "Wall"){
+            Destroy(gameObject);
         }
     }
 }

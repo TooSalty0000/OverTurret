@@ -465,6 +465,9 @@ MonoBehaviour:
   healthBar: {fileID: 860921228598818998}
   bulletPrefab: {fileID: 147332077618417847, guid: 0eb69c8b33a36254c97eb87bc758c820,
     type: 3}
+  explosionPrefab: {fileID: 5420281839629767145, guid: 52d4a669f09204428ab8c0e391337908,
+    type: 3}
+  maxTargets: 3
 --- !u!1 &4327550212299155007
 GameObject:
   m_ObjectHideFlags: 0

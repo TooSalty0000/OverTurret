@@ -12,5 +12,9 @@ public class TurretRecipe : AssembleRecipe
     public float range = 10f;
     public float shootRange = 5f;
     public float health = 5f;
+    public float lifeDeduction = .3f;
+    public float explosionRange = 3f;
+    public float explosionDamage = 3f;
+    public float assembleTime = 2f;
 
 }

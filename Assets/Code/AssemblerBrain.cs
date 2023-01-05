@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AssemblerBrain : TableBrain
 {
@@ -9,12 +10,15 @@ public class AssemblerBrain : TableBrain
     [SerializeField]
     public int maxItemsOnTable = 3;
     public int itemsOnTableCount = 0;
+    [SerializeField]
+    private Slider assembleBar;
 
     // Start is called before the first frame update
     public override void Start()
     {
         base.Start();
         itemsOnTable = new GameObject[maxItemsOnTable];
+        assembleBar.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -84,13 +88,32 @@ public class AssemblerBrain : TableBrain
             itemsOnTableCount = 0;
             itemsOnTable = new GameObject[maxItemsOnTable];
 
-            GameObject product = Instantiate(recipe.product, itemAnchor.position, itemAnchor.rotation);
-            TurretBrain turretBrain = product.GetComponent<TurretBrain>();
-            turretBrain.turretSetup(recipe);
+            StartCoroutine(AssembleCoroutine(recipe));
 
-            PlaceItemOnTable(product);
         } else  {
             Debug.Log("No recipe found");
         }
+    }
+
+    public IEnumerator AssembleCoroutine(TurretRecipe recipe)
+    {
+        assembleBar.gameObject.SetActive(true);
+        assembleBar.maxValue = recipe.assembleTime;
+        assembleBar.value = 0;
+        float createTimer = 0f;
+        while (createTimer < recipe.assembleTime) {
+            createTimer += Time.deltaTime;
+            assembleBar.value = createTimer;
+            yield return null;
+        }
+
+        GameObject product = Instantiate(recipe.product, itemAnchor.position, itemAnchor.rotation);
+        TurretBrain turretBrain = product.GetComponent<TurretBrain>();
+        turretBrain.turretSetup(recipe);
+
+        PlaceItemOnTable(product);
+
+        assembleBar.gameObject.SetActive(false);
+        StopAllCoroutines();
     }
 }

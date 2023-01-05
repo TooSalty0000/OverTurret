@@ -22,7 +22,7 @@ public class bulletBrain : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "Enemy") {
-            other.GetComponentInParent<EnemyBrain>().TakeDamage(damage);
+            other.GetComponentInParent<EnemyBrain>().takeDamage(damage);
             Destroy(gameObject);
         } else if (other.gameObject.tag == "Wall"){
             Destroy(gameObject);

@@ -71,3 +71,10 @@ Another big change is adding health and bullet system + enemy tracking system. I
 
 I also edited small things, such as how players take items from material boxes, level balancing, etc. Hopefully, after the explosion is added, I can work on level designs. As I do, I should create a storyboard for the system. 
 + Idk when, but I need to change these into multiplayer in the future. 
+
+## Pre.1.11
+In this stage, I tweaked more gameplay related things. 
+
+Firstly, I added the explosion. I think I need to work on the explosion a bit more, but it should work for now. It also damages nearby enemies, which I think helps a lot. However, as I test played, I realized that exploding and bullet counts are not enough to force the players to constantly make turrets. So, I made it so that turrets will drain health slowly. This would definitely force players to make or even strategize when to start making turrets. 
+
+I also designed the map a little. I believe this map will be the first tutorial map of the game. Other than that, there wasn't much. 

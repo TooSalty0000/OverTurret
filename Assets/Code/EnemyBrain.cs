@@ -90,7 +90,7 @@ public class EnemyBrain : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float damage) {
+    public void takeDamage(float damage) {
         health -= damage;
     }
 

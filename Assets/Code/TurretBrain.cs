@@ -7,6 +7,8 @@ public class TurretBrain : Holdable
 {
     private Transform target;
 
+    [Header("Turret Components")]
+
     [SerializeField]
     private Transform bulletSpawnpoint;
 
@@ -14,15 +16,21 @@ public class TurretBrain : Holdable
     private Transform barrel;
     [SerializeField]
     private Transform head;
+
+    [Header("Bars")]
     [SerializeField]
     private Slider bulletBar;
     [SerializeField]
     private Slider healthBar;
 
+    [Header("Prefabs")]
     [SerializeField]
     private GameObject bulletPrefab;
+    [SerializeField]
+    private GameObject explosionPrefab;
     private float closestDistace;
     private float shootTimer = 0;
+    private bool firstPickUp = false;
 
     [SerializeField]
     private int maxTargets = 3;
@@ -37,6 +45,9 @@ public class TurretBrain : Holdable
     private float range = 10f;
     private float shootRange = 5f;
     private float health = 5f;
+    private float lifeDeduction = .3f;
+    private float explosionRange = 3f;
+    private float explosionDamage = 3f;
 
     public void turretSetup(TurretRecipe recipe) {
         bulletCount = recipe.bulletCount;
@@ -46,6 +57,9 @@ public class TurretBrain : Holdable
         range = recipe.range;
         shootRange = recipe.shootRange;
         health = recipe.health;
+        lifeDeduction = recipe.lifeDeduction;
+        explosionRange = recipe.explosionRange;
+        explosionDamage = recipe.explosionDamage;
         
         bulletBar.maxValue = bulletCount;
         bulletBar.minValue = 0;
@@ -54,11 +68,15 @@ public class TurretBrain : Holdable
     }
 
     private void Start() {
+
+        bulletBar.gameObject.SetActive(false);
+        healthBar.gameObject.SetActive(false);
         
         bulletBar.maxValue = bulletCount;
         bulletBar.minValue = 0;
         healthBar.maxValue = health;
         healthBar.minValue = 0;
+        firstPickUp = false;
     }
 
     // Update is called once per frame
@@ -95,6 +113,8 @@ public class TurretBrain : Holdable
             shootTimer -= Time.deltaTime;
         }
 
+        health -= Time.deltaTime * lifeDeduction;
+
         bulletBar.value = bulletCount;
         healthBar.value = health;
 
@@ -104,14 +124,36 @@ public class TurretBrain : Holdable
                 targetEnemies.RemoveAt(i);
             }
         }
+
+        if (health <= 0) {
+            death();
+        }
         
     }
 
     public void takeDamage(float damage) {
         health -= damage;
-        if (health <= 0) {
-            Destroy(gameObject);
+    }
+
+    public void death() {
+        //spawn explosion
+        Instantiate(explosionPrefab, transform.position, transform.rotation);
+
+        //get all enemies in explosion range
+        Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRange);
+        //sort them into a list of EnemyBrain based on their parents
+        List<EnemyBrain> enemies = new List<EnemyBrain>();
+        foreach (Collider collider in colliders) {
+            if (collider.tag == "Enemy" && !enemies.Contains(collider.GetComponentInParent<EnemyBrain>())) {
+                enemies.Add(collider.GetComponentInParent<EnemyBrain>());
+            }
         }
+        //damage all enemies in list
+        foreach (EnemyBrain enemy in enemies) {
+            enemy.takeDamage(explosionDamage);
+        }
+
+        Destroy(gameObject);
     }
 
     private void shootTarget(Transform target) {
@@ -130,5 +172,14 @@ public class TurretBrain : Holdable
             return true;
         }
         return false;
+    }
+
+    public override void OnPickup() {
+        base.OnPickup();
+        if (!firstPickUp) {
+            firstPickUp = true;
+            bulletBar.gameObject.SetActive(true);
+            healthBar.gameObject.SetActive(true);
+        }
     }
 }

@@ -24,3 +24,7 @@ MonoBehaviour:
   range: 12
   shootRange: 10
   health: 5
+  lifeDeduction: 0.1
+  explosionRange: 3
+  explosionDamage: 6
+  assembleTime: 2
